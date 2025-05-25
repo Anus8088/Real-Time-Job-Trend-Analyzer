@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Job Trend Analyzer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Real-Time Job Trend Analyzer</h1>
+        
+        <form method="POST" class="search-form">
+            <input type="text" name="keyword" placeholder="Search job keyword..." value="{{ keyword or '' }}" required>
+            <button type="submit">Search</button>
+        </form>
+
+        {% if keyword %}
+            <p><strong>Showing results for:</strong> "{{ keyword }}"</p>
+        {% endif %}
+
+        {% if top_titles %}
+            <div class="section">
+                <h2>📌 Top Job Titles</h2>
+                <ul>
+                    {% for title, count in top_titles %}
+                        <li>{{ title }} — {{ count }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>📍 Top Cities</h2>
+                <ul>
+                    {% for city, count in top_cities %}
+                        <li>{{ city }} — {{ count }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>📅 Posting Trends</h2>
+                <ul>
+                    {% for date, count in date_trends %}
+                        <li>{{ date }} — {{ count }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <p>No data available. Try searching for another keyword.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
